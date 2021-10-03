@@ -1,7 +1,6 @@
 ﻿using Demo.DbContexts;
 using Demo.Generators;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
@@ -41,25 +40,5 @@ namespace Demo
                     services.AddDbContext<XPowerDbContext>(options =>
                         options.UseInMemoryDatabase(databaseName: "XPowerDB"));
                 });
-    }
-
-    class Startup
-    {
-        private readonly XPowerDbContext _context;
-
-        public Startup(XPowerDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task StartDemoAsync()
-        {
-            foreach (var item in _context.Users)
-            {
-                System.Console.WriteLine(item.FullName);
-            }
-
-            await Task.Delay(-1);
-        }
     }
 }
