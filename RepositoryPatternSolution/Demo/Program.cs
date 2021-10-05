@@ -1,5 +1,7 @@
 ﻿using Demo.DbContexts;
 using Demo.Generators;
+using Demo.Repositories.UserRepository;
+using Demo.Repositories.UserRepository.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -38,6 +40,7 @@ namespace Demo
                 {
                     services.AddDbContext<XPowerDbContext>(options =>
                         options.UseInMemoryDatabase(databaseName: "XPowerDB"));
+                    services.AddTransient<IUserRepository, UserRepository>();
                 });
     }
 }

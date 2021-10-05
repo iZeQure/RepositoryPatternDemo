@@ -1,9 +1,11 @@
-﻿namespace Demo.Models.User
+﻿using Demo.Repositories;
+
+namespace Demo.Models.User
 {
     /// <summary>
     /// Represents a generic User.
     /// </summary>
-    public interface IUser
+    public interface IUser : IAggregateRoot
     {
         long Id { get; }
         string FirstName { get; }
