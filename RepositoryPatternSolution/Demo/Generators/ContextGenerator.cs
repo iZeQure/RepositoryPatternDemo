@@ -8,7 +8,7 @@ namespace Demo.Generators
 {
     public class ContextGenerator
     {
-        public static void InitializeUserContext(IServiceProvider serviceProvider)
+        public static void InitializeDbContext(IServiceProvider serviceProvider)
         {
             using (var context = new XPowerDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<XPowerDbContext>>()))

@@ -12,7 +12,6 @@ namespace Demo
         static async Task Main(string[] args)
         {
             /* Items:
-             * TODO: Create concrete base for models.
              * TODO: Create implementation for an aggregate root.
              * TODO: Create abstract Repository for the User.
              * TODO: Specify CRUD and User Specific operations.
@@ -25,7 +24,7 @@ namespace Demo
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<XPowerDbContext>();
 
-                ContextGenerator.InitializeUserContext(services);
+                ContextGenerator.InitializeDbContext(services);
             }
 
             var startup = ActivatorUtilities.GetServiceOrCreateInstance<Startup>(host.Services);
