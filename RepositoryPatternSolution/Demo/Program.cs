@@ -22,8 +22,9 @@ namespace Demo
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<XPowerDbContext>();
 
+                // Make use of EF Context.
+                var context = services.GetRequiredService<XPowerDbContext>();
                 ContextGenerator.InitializeDbContext(services);
             }
 
@@ -36,8 +37,11 @@ namespace Demo
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    // Inject InMemory Database with EF..
                     services.AddDbContext<XPowerDbContext>(options =>
                         options.UseInMemoryDatabase(databaseName: "XPowerDB"));
+
+                    // Inject Repositories into the DI container here.
                 });
     }
 }
