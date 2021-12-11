@@ -1,7 +1,7 @@
 ﻿using Demo.Models.User;
 using System.Collections.Generic;
 
-namespace Demo.Generators
+namespace Demo._PRESET_.Generators
 {
     internal static class UserDataGenerator
     {
