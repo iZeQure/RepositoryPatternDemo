@@ -31,7 +31,7 @@ namespace Demo
 
         private async Task LeaderboardDemo()
         {
-            List<IScore> leaderboard = await _leaderboardService.GetScoresAsync();
+            IEnumerable<IScore> leaderboard = await _leaderboardService.GetScoresAsync();
             IScore scoreById = await _leaderboardService.GetScoreById(leaderboard is not null || leaderboard.Any() ? leaderboard.Select(l => l.ClientID).FirstOrDefault() : Guid.NewGuid());
 
             if (leaderboard.Any())

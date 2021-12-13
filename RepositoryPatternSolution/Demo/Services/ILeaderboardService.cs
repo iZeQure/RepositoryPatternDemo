@@ -7,7 +7,7 @@ namespace Demo.Services
 {
     public interface ILeaderboardService
     {
-        public Task<List<IScore>> GetScoresAsync();
+        public Task<IEnumerable<IScore>> GetScoresAsync();
 
         public Task<IScore> GetScoreById(Guid id);
     }
