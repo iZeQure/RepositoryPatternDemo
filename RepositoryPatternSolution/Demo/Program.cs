@@ -7,6 +7,7 @@ using Demo._PRESET_;
 using Demo._PRESET_.DbContexts;
 using Demo._PRESET_.Factories;
 using Demo.Services;
+using Demo.Models.Leaderboard;
 
 namespace Demo
 {
@@ -27,7 +28,7 @@ namespace Demo
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<DemoDbContext>();
 
-                await DbContextFactory.CreateAsync(nameof(DemoDbContext), services);
+                await DbContextFactory.CreateAsync(nameof(DemoDbContext), nameof(IScore), services);
             }
 
             var startup = ActivatorUtilities.GetServiceOrCreateInstance<Startup>(host.Services);
@@ -49,6 +50,7 @@ namespace Demo
                         options.UseInMemoryDatabase(databaseName: demoSettings.DbContextName));
 
                     services.AddSingleton<IUserService, UserService>();
+                    services.AddSingleton<ILeaderboardService, LeaderboardService>();
                 });
     }
 }

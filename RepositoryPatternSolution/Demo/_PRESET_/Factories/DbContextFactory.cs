@@ -1,5 +1,7 @@
 ﻿using Demo._PRESET_.DbContexts;
 using Demo._PRESET_.Generators;
+using Demo.Models.Leaderboard;
+using Demo.Models.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -9,11 +11,11 @@ namespace Demo._PRESET_.Factories
 {
     public class DbContextFactory
     {
-        public static async Task CreateAsync(string name, IServiceProvider provider)
+        public static async Task CreateAsync(string name, string dataType, IServiceProvider provider)
         {
-            switch (name)
+            switch (name, dataType)
             {
-                case nameof(DemoDbContext):
+                case (nameof(DemoDbContext), nameof(IUser)):
                     using (DemoDbContext context = new(provider.GetRequiredService<DbContextOptions<DemoDbContext>>()))
                     {
                         // Check if context is already populated.
@@ -28,8 +30,23 @@ namespace Demo._PRESET_.Factories
                         await context.SaveChangesAsync();
                     }
                     break;
-                default:
+                case (nameof(DemoDbContext), nameof(IScore)):
+                    using (DemoDbContext context = new(provider.GetRequiredService<DbContextOptions<DemoDbContext>>()))
+                    {
+                        // Check if context is already populated.
+                        if (await context.Leaderboard.AnyAsync())
+                        {
+                            // Exit the method early.
+                            return;
+                        }
+
+                        await context.Leaderboard.AddRangeAsync(LeaderboardDataGenerator.GenerateLeaderboard());
+
+                        await context.SaveChangesAsync();
+                    }
                     break;
+                default:
+                    throw new ArgumentException("Something went wrong while creating context.");
             }
         }
     }

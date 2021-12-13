@@ -1,4 +1,5 @@
-﻿using Demo.Models.User;
+﻿using Demo.Models.Leaderboard;
+using Demo.Models.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo._PRESET_.DbContexts
@@ -8,5 +9,7 @@ namespace Demo._PRESET_.DbContexts
         public DemoDbContext(DbContextOptions<DemoDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<LeaderboardScore> Leaderboard { get; set; }
     }
 }
