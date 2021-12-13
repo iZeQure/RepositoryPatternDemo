@@ -15,12 +15,6 @@ namespace Demo
     {
         static async Task Main(string[] args)
         {
-            /* Items:
-             * TODO: Create implementation for an aggregate root.
-             * TODO: Create abstract Repository for the User.
-             * TODO: Specify CRUD and User Specific operations.
-             */
-
             var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
