@@ -2,7 +2,7 @@
 
 namespace Demo.Models.Leaderboard
 {
-    public interface IScore
+    public interface IScore : IAggregateRoot
     {
         public Guid ClientID { get; set; }
         public decimal Value { get; set; }

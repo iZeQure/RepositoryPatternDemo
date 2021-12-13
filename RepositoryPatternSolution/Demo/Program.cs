@@ -8,6 +8,8 @@ using Demo._PRESET_.DbContexts;
 using Demo._PRESET_.Factories;
 using Demo.Services;
 using Demo.Models.Leaderboard;
+using Demo.Repositories.LeaderboardRepository.Abstractions;
+using Demo.Repositories.LeaderboardRepository;
 
 namespace Demo
 {
@@ -48,6 +50,8 @@ namespace Demo
 
                     services.AddDbContext<DemoDbContext>(options =>
                         options.UseInMemoryDatabase(databaseName: demoSettings.DbContextName));
+
+                    services.AddScoped<ILeaderboardRepository, DbLeaderboardRepository>();
 
                     services.AddSingleton<IUserService, UserService>();
                     services.AddSingleton<ILeaderboardService, LeaderboardService>();

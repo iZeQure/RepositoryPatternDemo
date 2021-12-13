@@ -1,6 +1,6 @@
-﻿using Demo._PRESET_.DbContexts;
-using Demo.Models.Leaderboard;
-using Microsoft.EntityFrameworkCore;
+﻿using Demo.Models.Leaderboard;
+using Demo.Repositories.LeaderboardRepository.Abstractions;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,21 +9,25 @@ namespace Demo.Services
 {
     public class LeaderboardService : ILeaderboardService
     {
-        private readonly DemoDbContext _dbContext;
+        private readonly ILeaderboardRepository _dbContext;
+        private readonly ILogger<LeaderboardService> _logger;
 
-        public LeaderboardService(DemoDbContext dbContext)
+        public LeaderboardService(ILeaderboardRepository dbContext, ILogger<LeaderboardService> logger)
         {
             _dbContext = dbContext;
+            _logger = logger;
         }
 
         public async Task<IScore> GetScoreById(Guid id)
         {
-            return await _dbContext.FindAsync<LeaderboardScore>(id);
+            _logger.LogInformation($"## Retrieving data by using logic typeof [{_dbContext.GetType().Name}] ##");
+            return await _dbContext.GetByIdAsync(id);
         }
 
-        public async Task<List<IScore>> GetScoresAsync()
+        public async Task<IEnumerable<IScore>> GetScoresAsync()
         {
-            return await _dbContext.Leaderboard.ToListAsync<IScore>();
+            _logger.LogInformation($"## Retrieving data by using logic typeof [{_dbContext.GetType().Name}] ##");
+            return await _dbContext.GetAllAsync();
         }
     }
 }
