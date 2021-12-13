@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\UserRepository\Abstractions\" />
+    <Compile Remove="Repositories\UserRepository\**" />
+    <EmbeddedResource Remove="Repositories\UserRepository\**" />
+    <None Remove="Repositories\UserRepository\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +18,11 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\Abstractions\" />
+    <Folder Include="Repositories\LeaderboardRepository\" />
   </ItemGroup>
 
 </Project>
